@@ -1,35 +1,44 @@
 async function generateImage() {
     const promptElement = document.getElementById("prompt");
     const resultContainer = document.getElementById("result-container");
-    const userMessage = document.createElement("div");
-    userMessage.classList.add("result-message", "user-message");
-    userMessage.innerText = promptElement.value;
+    const loader = document.getElementById("loader");
 
-    resultContainer.appendChild(userMessage);
+    const userPrompt = promptElement.value.trim();
+    if (!userPrompt) return;
+    
+    loader.style.display = "block";
 
-    const apiKey = "https://widipe.com/dalle"; 
+    resultContainer.innerHTML = "";
+    resultContainer.appendChild(loader);
+
+    const apiKey = "https://widipe.com/ai/text2img";
 
     try {
-      const prompt = `${apiKey}?text=${encodeURIComponent(promptElement.value)}`;
+      const prompt = `${apiKey}?text=${encodeURIComponent(userPrompt)}`;
       const response = await fetch(prompt);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
 
-      const resultMessage = document.createElement("div");
-      resultMessage.classList.add("result-message");
-      resultMessage.innerHTML = data.result;
+      // Mengubah respons menjadi (gambar)
+      const blob = await response.blob();
+      const imgUrl = URL.createObjectURL(blob);
 
-      resultContainer.appendChild(resultMessage);
-      resultContainer.scrollTop = resultContainer.scrollHeight; 
+      const resultImage = document.createElement("img");
+      resultImage.src = imgUrl;
+      resultImage.alt = "Gambar Hasil";
+      resultImage.setAttribute("class", "result-image");
+
+      loader.style.display = "none";
+      resultContainer.appendChild(resultImage);
+      resultContainer.scrollTop = resultContainer.scrollHeight;
     } catch (error) {
       console.error(error);
       const errorMessage = document.createElement("div");
-      errorMessage.classList.add("result-message");
       errorMessage.innerHTML = "Gagal menghasilkan gambar.";
       resultContainer.appendChild(errorMessage);
     }
 
-    promptElement.value = "";
+    promptElement.value = ""; // Mengosongkan input setelah pengiriman
   }

@@ -4,113 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hasilkan Gambar dengan DALL·E</title>
-    <style>
-      /* Styling dasar untuk body dan tata letak */
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: #f7f9fc;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        color: #333;
-      }
-
-      /* Container untuk konten */
-      .container {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        max-width: 600px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 80vh;
-      }
-
-      /* Heading */
-      h1 {
-        font-size: 1.6rem;
-        margin-bottom: 15px;
-        color: #0073e6;
-        text-align: center;
-      }
-
-      /* Input container */
-      .input-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-      }
-
-      /* Styling untuk input teks */
-      input[type="text"] {
-        flex: 1;
-        padding: 10px;
-        border: 2px solid #0073e6;
-        border-radius: 10px;
-        font-size: 1rem;
-        color: #333;
-        background-color: #f0f4f8;
-      }
-
-      /* Tombol */
-      button {
-        background-color: #0073e6;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 10px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      button:hover {
-        background-color: #005bb5;
-      }
-
-      /* Area hasil respons chat */
-      .result-container {
-        flex-grow: 1;
-        overflow-y: auto;
-        padding: 10px;
-        background-color: #f0f4f8;
-        border-radius: 10px;
-        margin-top: 10px;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-
-      /* Gambar hasil */
-      .result-image {
-        max-width: 100%;
-        border-radius: 10px;
-        margin-top: 10px;
-      }
-
-      /* Responsif untuk ukuran layar kecil */
-      @media (max-width: 600px) {
-        h1 {
-          font-size: 1.4rem;
-        }
-
-        input[type="text"],
-        button {
-          font-size: 0.9rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
       <h1>Hasilkan Gambar dengan DALL·E</h1>
 
       <!-- Hasil respons -->
-      <div class="result-container" id="result-container"></div>
+      <div class="result-container" id="result-container">
+        <div class="loader" id="loader" style="display: none;">
+          <div class="box1"></div>
+          <div class="box2"></div>
+          <div class="box3"></div>
+        </div>
+      </div>
 
       <!-- Input dan Tombol -->
       <div class="input-container">
@@ -123,50 +30,6 @@
       </div>
     </div>
 
-    <script>
-      async function generateImage() {
-        const promptElement = document.getElementById("prompt");
-        const resultContainer = document.getElementById("result-container");
-
-        // Mengambil prompt pengguna
-        const userPrompt = promptElement.value.trim();
-        if (!userPrompt) return; // Menghindari input kosong
-
-        // Menampilkan pesan pengguna
-        const userMessage = document.createElement("div");
-        userMessage.classList.add("result-message", "user-message");
-        userMessage.innerText = userPrompt;
-        resultContainer.appendChild(userMessage);
-
-        const apiKey = "https://widipe.com/ai/text2img"; 
-
-        try {
-          // Membuat URL untuk permintaan API
-          const prompt = `${apiKey}?text=${encodeURIComponent(userPrompt)}`;
-          const response = await fetch(prompt);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-
-          // Menampilkan gambar hasil
-          const resultImage = document.createElement("img");
-          resultImage.classList.add("result-image");
-          resultImage.src = data.result; 
-          resultImage.alt = "Gambar Hasil";
-
-          resultContainer.appendChild(resultImage);
-          resultContainer.scrollTop = resultContainer.scrollHeight;
-        } catch (error) {
-          console.error(error);
-          const errorMessage = document.createElement("div");
-          errorMessage.classList.add("result-message");
-          errorMessage.innerHTML = "Gagal menghasilkan gambar.";
-          resultContainer.appendChild(errorMessage);
-        }
-
-        promptElement.value = "";
-      }
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
