@@ -7,7 +7,7 @@ async function generateImage() {
 
     resultContainer.appendChild(userMessage);
 
-    const apiKey = "https://widipe.com/dalle"; // Replace with your actual API key
+    const apiKey = "https://widipe.com/dalle"; 
 
     try {
       const prompt = `${apiKey}?text=${encodeURIComponent(promptElement.value)}`;
@@ -22,7 +22,7 @@ async function generateImage() {
       resultMessage.innerHTML = data.result;
 
       resultContainer.appendChild(resultMessage);
-      resultContainer.scrollTop = resultContainer.scrollHeight; // Auto scroll ke bawah
+      resultContainer.scrollTop = resultContainer.scrollHeight; 
     } catch (error) {
       console.error(error);
       const errorMessage = document.createElement("div");
@@ -31,5 +31,5 @@ async function generateImage() {
       resultContainer.appendChild(errorMessage);
     }
 
-    promptElement.value = ""; // Hapus input setelah dikirim
+    promptElement.value = "";
   }
