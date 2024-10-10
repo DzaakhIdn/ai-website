@@ -11,7 +11,7 @@ async function generateImage() {
     resultContainer.innerHTML = "";
     resultContainer.appendChild(loader);
 
-    const apiKey = "https://widipe.com/dalle";
+    const apiKey = "https://widipe.com/ai/text2img";
 
     try {
       const prompt = `${apiKey}?text=${encodeURIComponent(userPrompt)}`;
