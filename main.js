@@ -34,6 +34,7 @@ async function generateImage() {
       resultContainer.appendChild(resultImage);
       resultContainer.scrollTop = resultContainer.scrollHeight;
     } catch (error) {
+      loader.style.display = "none";
       console.error(error);
       const errorMessage = document.createElement("div");
       errorMessage.innerHTML = "Gagal menghasilkan gambar.";
