@@ -138,7 +138,7 @@
         userMessage.innerText = userPrompt;
         resultContainer.appendChild(userMessage);
 
-        const apiKey = "https://widipe.com/ai/text2img"; // Ganti dengan URL API yang benar
+        const apiKey = "https://widipe.com/ai/text2img"; 
 
         try {
           // Membuat URL untuk permintaan API
@@ -152,11 +152,11 @@
           // Menampilkan gambar hasil
           const resultImage = document.createElement("img");
           resultImage.classList.add("result-image");
-          resultImage.src = data.result; // Pastikan API mengembalikan URL gambar
+          resultImage.src = data.result; 
           resultImage.alt = "Gambar Hasil";
 
           resultContainer.appendChild(resultImage);
-          resultContainer.scrollTop = resultContainer.scrollHeight; // Auto scroll ke bawah
+          resultContainer.scrollTop = resultContainer.scrollHeight;
         } catch (error) {
           console.error(error);
           const errorMessage = document.createElement("div");
@@ -165,7 +165,7 @@
           resultContainer.appendChild(errorMessage);
         }
 
-        promptElement.value = ""; // Hapus input setelah dikirim
+        promptElement.value = "";
       }
     </script>
   </body>
