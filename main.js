@@ -40,5 +40,5 @@ async function generateImage() {
       resultContainer.appendChild(errorMessage);
     }
 
-    promptElement.value = ""; // Mengosongkan input setelah pengiriman
+    promptElement.value = "";
   }
